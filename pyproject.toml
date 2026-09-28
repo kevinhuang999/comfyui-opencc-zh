@@ -1,0 +1,21 @@
+[project]
+name = "opencc-zh"
+version = "1.0.0"
+description = "OpenCC-based Traditional to Simplified Chinese conversion for ComfyUI-Whisper subtitles"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = [
+    "opencc-python-reimplemented>=0.1.7",
+]
+classifiers = [
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Repository = "https://github.com/kevinhuang999/comfyui-opencc-zh"
+"Bug Tracker" = "https://github.com/kevinhuang999/comfyui-opencc-zh/issues"
+
+[tool.comfy]
+PublisherId = "kevinhuang999"
+DisplayName = "OpenCC 繁转简（字幕）"
+Icon = "https://raw.githubusercontent.com/kevinhuang999/comfyui-opencc-zh/main/icon.svg"

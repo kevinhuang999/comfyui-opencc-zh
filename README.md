@@ -21,14 +21,16 @@ cd ComfyUI/custom_nodes
 git clone https://github.com/kevinhuang999/comfyui-opencc-zh.git
 ```
 
-安装依赖（**必须**，且要用 ComfyUI 自己的 Python 环境）：
+手动 clone 时依赖**不会自动装**，需要自己跑一次（必须用 ComfyUI 自己的 Python 环境）：
 
 ```bash
-<ComfyUI 目录>/python/python.exe -m pip install opencc-python-reimplemented
+<ComfyUI 目录>/python/python.exe -m pip install -r requirements.txt
 ```
 
 > 秋叶整合包（ComfyUI-aki）用户：Python 在 `D:\ComfyUI-aki-v3.2\python\python.exe`，
 > **不是** `python_embeded`。装错环境节点会报 `No module named 'opencc'`。
+>
+> 方式一（Manager 安装）会读仓库里的 `requirements.txt` 自动装依赖，不用手动执行。
 
 装完**重启 ComfyUI**，节点出现在 `whisper` 分类下（显示名「繁转简（字幕）」）。
 

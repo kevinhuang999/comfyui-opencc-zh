@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="OpenCC 繁转简">
+  <rect width="400" height="400" rx="88" fill="#2563eb"/>
+  <text x="200" y="118" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Noto Sans SC',sans-serif" font-size="60" fill="#ffffff" fill-opacity="0.62">繁</text>
+  <line x1="128" y1="146" x2="268" y2="146" stroke="#ffffff" stroke-opacity="0.62" stroke-width="9" stroke-linecap="round"/>
+  <path d="M252 126 L284 146 L252 166" fill="none" stroke="#ffffff" stroke-opacity="0.62" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="200" y="322" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Noto Sans SC',sans-serif" font-size="176" font-weight="700" fill="#ffffff">简</text>
+</svg>
