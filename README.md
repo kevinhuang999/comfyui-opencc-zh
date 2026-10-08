@@ -1,5 +1,12 @@
 # comfyui-opencc-zh
 
+[中文](#中文) | [English](#english)
+
+---
+
+<a id="中文"></a>
+# 中文
+
 > 给 **ComfyUI-Whisper** 用的「繁转简」节点：Whisper 转中文字幕时经常输出繁体，
 > 本节点串在 `Apply Whisper` 与 `Save SRT` 之间，在写出字幕之前把繁体统一转成简体。
 
@@ -75,6 +82,86 @@ LoadAudio → Apply Whisper → OpenCCZhConvert → Save SRT
   （纯 Python wheel，无需编译），转换规则来自 [OpenCC](https://github.com/BYVoid/OpenCC)。
 - **已知反例，如实记录**：短音频上 `large-v3-turbo` 可能漏字（如「或者」听成「或」）。
   本节点只做繁简转换，**不做纠错**——字幕准确度取决于所选 Whisper 模型。
+
+## License
+
+MIT
+
+---
+
+<a id="english"></a>
+# English
+
+> A "Traditional → Simplified" node for **ComfyUI-Whisper**: Whisper often outputs Traditional Chinese when transcribing Chinese audio.
+> This node sits between `Apply Whisper` and `Save SRT` and converts everything to Simplified before the subtitle is written.
+
+## What Problem It Solves
+
+Transcribing Chinese audio with Whisper frequently yields Traditional Chinese (especially with the `large-v3` series and older recordings). Converting afterwards with a separate tool is a hassle. This node puts that step back inside the workflow — **wire it once, it runs automatically every time**.
+
+## Installation
+
+### Option 1: ComfyUI-Manager
+
+Search for `opencc-zh` → Install → restart ComfyUI.
+
+### Option 2: Manual
+
+```bash
+cd ComfyUI/custom_nodes
+git clone https://github.com/kevinhuang999/comfyui-opencc-zh.git
+```
+
+With a manual clone the dependencies are **not installed automatically** — run this once yourself (you must use ComfyUI's own Python environment):
+
+```bash
+<ComfyUI dir>/python/python.exe -m pip install -r requirements.txt
+```
+
+> For the Aki (秋叶) all-in-one bundle users: Python lives at `D:\ComfyUI-aki-v3.2\python\python.exe`,
+> **not** in `python_embeded`. Installing into the wrong environment causes `No module named 'opencc'`.
+>
+> Option 1 (Manager install) reads `requirements.txt` from the repo and installs automatically.
+
+After installing, **restart ComfyUI**; the node appears under the `whisper` category (display name "繁转简（字幕）").
+
+## Node
+
+**繁转简（字幕）** · `OpenCCZhConvert`
+
+| | |
+|---|---|
+| Input | `alignment` — type `whisper_alignment`, connect to `Apply Whisper`'s `segments_alignment` |
+| | `config` — conversion mode, see the table below |
+| Output | `alignment` — converted result, connect to `Save SRT` |
+| | `text` — plain text, connect to `PreviewAny` to inspect subtitle content |
+
+### `config` options
+
+| Value | Meaning |
+|---|---|
+| `none` | **No conversion** (pass-through) — pick this to disable Traditional → Simplified, **without rewiring** |
+| `t2s` | Traditional → Simplified (most common, default) |
+| `tw2s` | Taiwan Traditional → Simplified |
+| `s2t` | Simplified → Traditional |
+| `s2tw` | Simplified → Taiwan Traditional |
+| `s2hk` | Simplified → Hong Kong Traditional |
+| `hk2s` | Hong Kong Traditional → Simplified |
+
+## Wiring
+
+```
+LoadAudio → Apply Whisper → OpenCCZhConvert → Save SRT
+                                  └──────────→ PreviewAny (inspect plain text)
+```
+
+The node sits mid-chain; to temporarily disable it, just set `config` to `none` — **no need to rewire**.
+
+## Notes
+
+- **Will it damage Simplified text?** Tested on 8 sets of "one-to-many" trap words (著作/著名/显著, 面条/里面/公里, 干活/干燥/干部, 发展/头发, 了解/了却, 后面/皇后, etc.) under `t2s` — **all passed through unchanged, 0/8 modified**. So leaving it on has no side effects; it's genuine insurance.
+- Built on [`opencc-python-reimplemented`](https://pypi.org/project/opencc-python-reimplemented/) (pure-Python wheel, no compilation needed); conversion rules come from [OpenCC](https://github.com/BYVoid/OpenCC).
+- **Known counter-example, documented honestly**: on short audio `large-v3-turbo` may drop characters (e.g. "或者" heard as "或"). This node only converts Traditional/Simplified and **does not correct errors** — subtitle accuracy depends on the Whisper model you choose.
 
 ## License
 
